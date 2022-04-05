@@ -14,7 +14,7 @@ public class NBTIStudent {
 	private String id;
 
 	@Field
-	private String photo;// base64
+	private Long photo;
 
 	@Field
 	private String name;
@@ -39,6 +39,12 @@ public class NBTIStudent {
 
 	@Field
 	private String email;
+
+	@Field
+	private Long dniFront; // Base64
+
+	@Field
+	private Long dniBack; // Base64
 
 	@Field
 	private String adress;
@@ -81,11 +87,11 @@ public class NBTIStudent {
 		this.id = id;
 	}
 
-	public String getPhoto() {
+	public Long getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
+	public void setPhoto(Long photo) {
 		this.photo = photo;
 	}
 
@@ -147,6 +153,22 @@ public class NBTIStudent {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public Long getDniFront() {
+		return dniFront;
+	}
+
+	public void setDniFront(Long dniFront) {
+		this.dniFront = dniFront;
+	}
+
+	public Long getDniBack() {
+		return dniBack;
+	}
+
+	public void setDniBack(Long dniBack) {
+		this.dniBack = dniBack;
 	}
 
 	public void setEmail(String email) {
