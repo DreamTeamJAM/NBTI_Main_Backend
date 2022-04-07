@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	   http.authorizeRequests().antMatchers("/getStudents","/adminHome","/userHome").authenticated();
 	   
 	   // restricting access
-	   http.httpBasic().and().authorizeRequests().antMatchers("/getUsers", "/api/nbtiCV").hasAnyAuthority("admin").and()
+	   http.httpBasic().and().authorizeRequests().antMatchers("/getUsers", "/snbtiCV").hasAnyAuthority("admin").and()
 	   .exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 	   
 	   //configure login form
