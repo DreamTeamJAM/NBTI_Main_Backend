@@ -70,8 +70,12 @@ public class NBTIStudent {
 	@Field
 	private List<String> comunicationSkills;
 
+	public enum DrivingLicenseType {
+		AM, A1, A2, A, B, BE, W, C, CE, C1, C1E, D, DE, D1, D1E
+	}
+
 	@Field
-	private String drivingLicense;// could be bool
+	private DrivingLicenseType drivingLicense;
 
 	@Field
 	private List<String> hobbies;
@@ -239,11 +243,11 @@ public class NBTIStudent {
 		this.comunicationSkills = comunicationSkills;
 	}
 
-	public String getDrivingLicense() {
+	public DrivingLicenseType getDrivingLicense() {
 		return drivingLicense;
 	}
 
-	public void setDrivingLicense(String drivingLicense) {
+	public void setDrivingLicense(DrivingLicenseType drivingLicense) {
 		this.drivingLicense = drivingLicense;
 	}
 
