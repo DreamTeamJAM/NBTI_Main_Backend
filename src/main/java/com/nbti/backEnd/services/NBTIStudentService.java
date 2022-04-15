@@ -7,10 +7,10 @@ import com.nbti.backEnd.model.NBTIStudent;
 
 public interface NBTIStudentService {
 	
-	void save(NBTIStudent student);
+	NBTIStudent save(NBTIStudent student);
 	
 	List<NBTIStudent> listAll();
 	
-	Optional<NBTIStudent> findById(String id);
+	Optional<NBTIStudent> findById(Long id);
 
 }

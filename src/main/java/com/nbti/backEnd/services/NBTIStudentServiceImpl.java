@@ -7,8 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nbti.backEnd.model.EducationDetails;
+import com.nbti.backEnd.model.JobDetails;
+import com.nbti.backEnd.model.LanguageDetails;
 import com.nbti.backEnd.model.NBTIStudent;
+import com.nbti.backEnd.model.VolunteerDetails;
+import com.nbti.backEnd.repositories.EducationDetailsRepository;
+import com.nbti.backEnd.repositories.JobDetailsRepository;
+import com.nbti.backEnd.repositories.LanguageDetailsRepository;
 import com.nbti.backEnd.repositories.NBTIStudentRepository;
+import com.nbti.backEnd.repositories.VolunteerDetailsRepository;
 
 @Service
 @Transactional
@@ -17,10 +25,30 @@ public class NBTIStudentServiceImpl implements NBTIStudentService {
 	@Autowired
 	NBTIStudentRepository repo;
 
-	@Override
-	public void save(NBTIStudent student) {
-		repo.save(student);
+	@Autowired
+	JobDetailsRepository jobRepo;
+	
+	@Autowired
+	VolunteerDetailsRepository volRepo;
 
+	@Autowired
+	EducationDetailsRepository eduRepo;
+
+	@Autowired
+	LanguageDetailsRepository langRepo;
+
+	@Override
+	public NBTIStudent save(NBTIStudent student) {
+		if (student.getOtherLanguages() != null)
+			langRepo.saveAll(student.getOtherLanguages());
+		if (student.getWorkExperience() != null)
+			jobRepo.saveAll(student.getWorkExperience());
+		if (student.getEducation() != null)
+			eduRepo.saveAll(student.getEducation());
+		if (student.getVolunteering() != null)
+			volRepo.saveAll(student.getVolunteering());
+		return repo.saveAndFlush(student);
+		
 	}
 
 	@Override
@@ -30,7 +58,7 @@ public class NBTIStudentServiceImpl implements NBTIStudentService {
 	}
 
 	@Override
-	public Optional<NBTIStudent> findById(String id) {
+	public Optional<NBTIStudent> findById(Long id) {
 
 		return repo.findById(id);
 	}

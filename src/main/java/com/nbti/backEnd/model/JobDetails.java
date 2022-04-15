@@ -1,18 +1,16 @@
 package com.nbti.backEnd.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@Document
+@Entity
+@Table(name = "JOB_DETAILS")
 public class JobDetails extends ActivityDetails {
 
-	@Field
 	private String company;
 
-	@Field
 	private String city;
 
-	@Field
 	private String tasks;
 
 	public String getCompany() {

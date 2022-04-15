@@ -8,17 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nbti.backEnd.model.ImageFile;
-import com.nbti.backEnd.repositories.ImageFileRepository;
+import com.nbti.backEnd.model.NBTIFile;
+import com.nbti.backEnd.repositories.NBTIFileRepository;
 
 @Service
-public class ImageFileServiceImpl implements ImageFileService {
+public class NBTIFileServiceImpl implements NBTIFileService {
 
 	@Autowired
-	ImageFileRepository imgRepo;
+	NBTIFileRepository imgRepo;
 	@Override
-	public String saveMultipartFile(MultipartFile file) {
-		ImageFile imgFile = new ImageFile();
+	public Long saveMultipartFile(MultipartFile file) {
+		NBTIFile imgFile = new NBTIFile();
 		imgFile.setName(file.getOriginalFilename());
 		imgFile.setType(file.getContentType());
 		System.out.println(file.getName());
@@ -28,19 +28,19 @@ public class ImageFileServiceImpl implements ImageFileService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		ImageFile savedFile = imgRepo.save(imgFile);
+		NBTIFile savedFile = imgRepo.save(imgFile);
 		System.out.println(savedFile.getId());
 		return savedFile.getId();
 	}
 
 	@Override
-	public Optional<ImageFile> FindById(String id) {
+	public Optional<NBTIFile> FindById(Long id) {
 		
 		return imgRepo.findById(id);
 	}
 
 	@Override
-	public List<ImageFile> FindAll() {
+	public List<NBTIFile> FindAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

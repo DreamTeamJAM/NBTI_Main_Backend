@@ -1,9 +1,20 @@
 package com.nbti.backEnd.model;
 
-import org.springframework.data.mongodb.core.mapping.Field;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-public class VolunteerDetails extends ActivityDetails{
+@Entity
+@Table(name = "VOLUNTEER_DETAILS")
+public class VolunteerDetails extends ActivityDetails {
 
-	@Field
 	private String Description;
+
+	public String getDescription() {
+		return Description;
+	}
+
+	public void setDescription(String description) {
+		Description = description;
+	}
+
 }

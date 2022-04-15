@@ -3,99 +3,113 @@ package com.nbti.backEnd.model;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Document(collection = "NBTIStudent")
+@Entity
+@Table(name = "STUDENT")
 public class NBTIStudent {
 
 	@Id
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-	@Field
-	private Long photo;
+	@OneToOne
+	@JoinColumn(name = "photo_id")
+	private NBTIFile photo;
 
-	@Field
+	
 	private String name;
 
-	@Field
+	
 	private String firstSurname;
 
-	@Field
+	
 	private String secondSurname;
 
-	@Field
+	
 	private String nationality;
 
-	@Field
+	
 	private String phone;
 
-	@Field
+	
 	private Date birthDate;
 
-	@Field
+	
 	private String gender;// Enum maybe?
 
-	@Field
+	
 	private String email;
 
-	@Field
-	private Long dniFront; // Base64
+	@OneToOne
+	@JoinColumn(name = "dni_front_id")
+	private NBTIFile dniFront; 
 
-	@Field
-	private Long dniBack; // Base64
+	@OneToOne
+	@JoinColumn(name = "dni_back_id")
+	private NBTIFile dniBack; 
 
-	@Field
+	
 	private String adress;
 
-	@Field
+	
 	private String aboutMe;
 
-	@Field
+	@OneToMany( orphanRemoval = true)
+	@JoinColumn(name = "student_id")
 	private List<JobDetails> workExperience;
 
-	@Field
+	@OneToMany( orphanRemoval = true)
+	@JoinColumn(name = "student_id")
 	private List<EducationDetails> education;
 
-	@Field
-	private List<String> motherTongues;
+	
+	private String motherTongues;//Json
 
-	@Field
+	@OneToMany( orphanRemoval = true)
+	@JoinColumn(name = "student_id")
 	private List<LanguageDetails> otherLanguages;
 
-	@Field
-	private List<String> digitalSkills;
+	
+	private String digitalSkills;//Json
 
-	@Field
-	private List<String> comunicationSkills;
+	
+	private String comunicationSkills;//Json
 
 	public enum DrivingLicenseType {
 		AM, A1, A2, A, B, BE, W, C, CE, C1, C1E, D, DE, D1, D1E
 	}
 
-	@Field
+	
 	private DrivingLicenseType drivingLicense;
 
-	@Field
-	private List<String> hobbies;
+	
+	private String hobbies;
 
-	@Field
+	@OneToMany( orphanRemoval = true)
+	@JoinColumn(name = "student_id")
 	private List<VolunteerDetails> volunteering;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Long getPhoto() {
+	public NBTIFile getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(Long photo) {
+	public void setPhoto(NBTIFile photo) {
 		this.photo = photo;
 	}
 
@@ -159,19 +173,19 @@ public class NBTIStudent {
 		return email;
 	}
 
-	public Long getDniFront() {
+	public NBTIFile getDniFront() {
 		return dniFront;
 	}
 
-	public void setDniFront(Long dniFront) {
+	public void setDniFront(NBTIFile dniFront) {
 		this.dniFront = dniFront;
 	}
 
-	public Long getDniBack() {
+	public NBTIFile getDniBack() {
 		return dniBack;
 	}
 
-	public void setDniBack(Long dniBack) {
+	public void setDniBack(NBTIFile dniBack) {
 		this.dniBack = dniBack;
 	}
 
@@ -211,13 +225,7 @@ public class NBTIStudent {
 		this.education = education;
 	}
 
-	public List<String> getMotherTongues() {
-		return motherTongues;
-	}
-
-	public void setMotherTongues(List<String> motherTongues) {
-		this.motherTongues = motherTongues;
-	}
+	
 
 	public List<LanguageDetails> getOtherLanguages() {
 		return otherLanguages;
@@ -227,21 +235,7 @@ public class NBTIStudent {
 		this.otherLanguages = otherLanguages;
 	}
 
-	public List<String> getDigitalSkills() {
-		return digitalSkills;
-	}
-
-	public void setDigitalSkills(List<String> digitalSkills) {
-		this.digitalSkills = digitalSkills;
-	}
-
-	public List<String> getComunicationSkills() {
-		return comunicationSkills;
-	}
-
-	public void setComunicationSkills(List<String> comunicationSkills) {
-		this.comunicationSkills = comunicationSkills;
-	}
+	
 
 	public DrivingLicenseType getDrivingLicense() {
 		return drivingLicense;
@@ -251,11 +245,13 @@ public class NBTIStudent {
 		this.drivingLicense = drivingLicense;
 	}
 
-	public List<String> getHobbies() {
+	
+
+	public String getHobbies() {
 		return hobbies;
 	}
 
-	public void setHobbies(List<String> hobbies) {
+	public void setHobbies(String hobbies) {
 		this.hobbies = hobbies;
 	}
 
@@ -266,5 +262,31 @@ public class NBTIStudent {
 	public void setVolunteering(List<VolunteerDetails> volunteering) {
 		this.volunteering = volunteering;
 	}
+
+	public String getMotherTongues() {
+		return motherTongues;
+	}
+
+	public void setMotherTongues(String motherTongues) {
+		this.motherTongues = motherTongues;
+	}
+
+	public String getDigitalSkills() {
+		return digitalSkills;
+	}
+
+	public void setDigitalSkills(String digitalSkills) {
+		this.digitalSkills = digitalSkills;
+	}
+
+	public String getComunicationSkills() {
+		return comunicationSkills;
+	}
+
+	public void setComunicationSkills(String comunicationSkills) {
+		this.comunicationSkills = comunicationSkills;
+	}
+	
+	
 
 }

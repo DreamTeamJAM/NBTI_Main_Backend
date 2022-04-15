@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nbti.backEnd.model.ImageFile;
-import com.nbti.backEnd.services.ImageFileService;
+import com.nbti.backEnd.model.NBTIFile;
+import com.nbti.backEnd.services.NBTIFileService;
 
 @RestController
-public class ImageFileController {
+public class FileController {
 
 //	final static String RES_ROUTE = "C:\\dev\\NBTI\\backEnd\\src\\main\\resources\\";
 
 	@Autowired
-	ImageFileService service;
+	NBTIFileService service;
 
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Object> uploadFile(@RequestParam MultipartFile file) {
 		System.out.println(file.getSize());
-		String imgId = service.saveMultipartFile(file);
+		Long imgId = service.saveMultipartFile(file);
 		System.out.println(String.format("File name '%s' uploaded successfully.", imgId));
 
 		// File f = new File(RES_ROUTE + file.getOriginalFilename());
@@ -48,11 +48,11 @@ public class ImageFileController {
 	}
 
 	@GetMapping("/download/{id}")
-	public ResponseEntity<Resource> downloadFile(@PathVariable String id) {
+	public ResponseEntity<Resource> downloadFile(@PathVariable Long id) {
 //		File f = new File(RES_ROUTE + fileName);
 //		Resource fileRes = new FileSystemResource(f);
 		try {
-			ImageFile img = service.FindById(id).get();
+			NBTIFile img = service.FindById(id).get();
 			Resource r = new ByteArrayResource(img.getData());
 			return ResponseEntity.ok()
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + img.getName() + "\"").body(r);

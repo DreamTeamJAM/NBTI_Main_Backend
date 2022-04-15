@@ -21,33 +21,34 @@ public class StudentApiController {
 	private NBTIStudentService studentService;
 	
 	@PostMapping("/nbtiCV")
-	public ResponseEntity<Object> postStudent(@RequestBody NBTIStudent student) {
+	public ResponseEntity<Long> postStudent(@RequestBody NBTIStudent student) {
 		System.out.println("POST Student CV");
-		studentService.save(student);
-		return ResponseEntity.created(null).build();
+		NBTIStudent savedCV = studentService.save(student);
+		return new ResponseEntity<>(savedCV.getId(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/nbtiCV")
 	public ResponseEntity<List<NBTIStudent>> getAll(){
 		try {
 			System.out.println("returning all pdfs");
-			List<NBTIStudent> pdfs = studentService.listAll();
+			List<NBTIStudent> students = studentService.listAll();
 			
 
-			return new ResponseEntity<>(pdfs, HttpStatus.OK);
+			return new ResponseEntity<>(students, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/nbtiCV/{id}")
-	public ResponseEntity<List<NBTIStudent>> getById(@PathVariable String id){
+	public ResponseEntity<NBTIStudent> getById(@PathVariable Long id){
 		try {
 			System.out.println("returning pdf " + id);
-			List<NBTIStudent> pdfs = studentService.listAll();
+			NBTIStudent student = studentService.findById(id).get(); 
+			
 			
 
-			return new ResponseEntity<>(pdfs, HttpStatus.OK);
+			return new ResponseEntity<>(student, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

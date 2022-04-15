@@ -2,23 +2,33 @@ package com.nbti.backEnd.model;
 
 import java.util.Date;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Document
+@MappedSuperclass
 public abstract class ActivityDetails {
-	
-	@Field
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
 	private String title;
-	
-	@Field
+
 	private Date startDate;
-	
-	@Field
+
 	private Date endDate;
-	
-	@Field
+
 	private String country;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -51,7 +61,5 @@ public abstract class ActivityDetails {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
-	
 
 }
