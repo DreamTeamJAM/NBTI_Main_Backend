@@ -53,7 +53,11 @@ public class FileController {
 //		Resource fileRes = new FileSystemResource(f);
 		try {
 			NBTIFile img = service.FindById(id).get();
+			
 			Resource r = new ByteArrayResource(img.getData());
+			if (img.isImage()) {
+				return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(r);
+			}else
 			return ResponseEntity.ok()
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + img.getName() + "\"").body(r);
 		} catch (NoSuchElementException e) {

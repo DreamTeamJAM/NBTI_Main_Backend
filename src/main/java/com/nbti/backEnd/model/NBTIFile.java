@@ -1,5 +1,8 @@
 package com.nbti.backEnd.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +22,12 @@ public class NBTIFile {
 	private String type;
 
 	private byte[] data;
+	
+	private final static List<String> IMG_TYPES = List.of("image/png", "image/jpg", "image/jpeg");
+	
+	public boolean isImage() {
+		return IMG_TYPES.contains(type.toLowerCase());
+	}
 
 	public Long getId() {
 		return id;
