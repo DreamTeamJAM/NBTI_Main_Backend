@@ -24,76 +24,83 @@ public class NBTIStudent {
 	@JoinColumn(name = "photo_id")
 	private NBTIFile photo;
 
-	
 	private String name;
 
-	
+	private String dni;
+
+	private String city;
+
+	private String typeOfStudent;// enum?
+
+	@OneToOne
+	@JoinColumn(name = "school_id")
+	private EducationDetails currentSchool;
+
+	// to relate
+	private EnterpriseDetails currentCompany;
+
+	// to relate
+	private HostingDetails currentHosting;
+
+	private String project;
+
+	private Date arrival;
+
+	private Date departure;
+
 	private String firstSurname;
 
-	
 	private String secondSurname;
 
-	
 	private String nationality;
 
-	
 	private String phone;
 
-	
 	private Date birthDate;
 
-	
 	private String gender;// Enum maybe?
 
-	
 	private String email;
 
 	@OneToOne
 	@JoinColumn(name = "dni_front_id")
-	private NBTIFile dniFront; 
+	private NBTIFile dniFront;
 
 	@OneToOne
 	@JoinColumn(name = "dni_back_id")
-	private NBTIFile dniBack; 
+	private NBTIFile dniBack;
 
-	
-	private String adress;
+	private String address;
 
-	
 	private String aboutMe;
 
-	@OneToMany( orphanRemoval = true)
+	@OneToMany(orphanRemoval = true)
 	@JoinColumn(name = "student_id")
 	private List<JobDetails> workExperience;
 
-	@OneToMany( orphanRemoval = true)
+	@OneToMany(orphanRemoval = true)
 	@JoinColumn(name = "student_id")
 	private List<EducationDetails> education;
 
-	
-	private String motherTongues;//Json
+	private String motherTongues;// Json
 
-	@OneToMany( orphanRemoval = true)
+	@OneToMany(orphanRemoval = true)
 	@JoinColumn(name = "student_id")
 	private List<LanguageDetails> otherLanguages;
 
-	
-	private String digitalSkills;//Json
+	private String digitalSkills;// Json
 
-	
-	private String comunicationSkills;//Json
+	private String comunicationSkills;// Json
 
 	public enum DrivingLicenseType {
 		AM, A1, A2, A, B, BE, W, C, CE, C1, C1E, D, DE, D1, D1E
 	}
 
-	
 	private DrivingLicenseType drivingLicense;
 
-	
 	private String hobbies;
 
-	@OneToMany( orphanRemoval = true)
+	@OneToMany(orphanRemoval = true)
 	@JoinColumn(name = "student_id")
 	private List<VolunteerDetails> volunteering;
 
@@ -193,12 +200,12 @@ public class NBTIStudent {
 		this.email = email;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getAboutMe() {
@@ -225,8 +232,6 @@ public class NBTIStudent {
 		this.education = education;
 	}
 
-	
-
 	public List<LanguageDetails> getOtherLanguages() {
 		return otherLanguages;
 	}
@@ -235,8 +240,6 @@ public class NBTIStudent {
 		this.otherLanguages = otherLanguages;
 	}
 
-	
-
 	public DrivingLicenseType getDrivingLicense() {
 		return drivingLicense;
 	}
@@ -244,8 +247,6 @@ public class NBTIStudent {
 	public void setDrivingLicense(DrivingLicenseType drivingLicense) {
 		this.drivingLicense = drivingLicense;
 	}
-
-	
 
 	public String getHobbies() {
 		return hobbies;
@@ -285,6 +286,78 @@ public class NBTIStudent {
 
 	public void setComunicationSkills(String comunicationSkills) {
 		this.comunicationSkills = comunicationSkills;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getTypeOfStudent() {
+		return typeOfStudent;
+	}
+
+	public void setTypeOfStudent(String typeOfStudent) {
+		this.typeOfStudent = typeOfStudent;
+	}
+
+	public EducationDetails getCurrentSchool() {
+		return currentSchool;
+	}
+
+	public void setCurrentSchool(EducationDetails currentSchool) {
+		this.currentSchool = currentSchool;
+	}
+
+	public EnterpriseDetails getCurrentCompany() {
+		return currentCompany;
+	}
+
+	public void setCurrentCompany(EnterpriseDetails currentCompany) {
+		this.currentCompany = currentCompany;
+	}
+
+	public HostingDetails getCurrentHosting() {
+		return currentHosting;
+	}
+
+	public void setCurrentHosting(HostingDetails currentHosting) {
+		this.currentHosting = currentHosting;
+	}
+
+	public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
+	public Date getArrival() {
+		return arrival;
+	}
+
+	public void setArrival(Date arrival) {
+		this.arrival = arrival;
+	}
+
+	public Date getDeparture() {
+		return departure;
+	}
+
+	public void setDeparture(Date departure) {
+		this.departure = departure;
 	}
 	
 	
