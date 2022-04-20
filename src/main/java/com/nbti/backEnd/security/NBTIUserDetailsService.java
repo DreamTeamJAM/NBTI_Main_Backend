@@ -16,13 +16,13 @@ import com.nbti.backEnd.model.Users;
 import com.nbti.backEnd.repositories.UserRepository;
 
 @Component
-public class MongoUserDetailsService implements UserDetailsService{
+public class NBTIUserDetailsService implements UserDetailsService{
 
 	@Autowired 
 	private UserRepository userRepository;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Users user=userRepository.findByUsername(username);
+		Users user=userRepository.findByUsername(username).get(0);
 		
 		if(user == null) {
 	      throw new UsernameNotFoundException("User not found");

@@ -7,11 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nbti.backEnd.model.EducationDetails;
-import com.nbti.backEnd.model.JobDetails;
-import com.nbti.backEnd.model.LanguageDetails;
 import com.nbti.backEnd.model.NBTIStudent;
-import com.nbti.backEnd.model.VolunteerDetails;
 import com.nbti.backEnd.repositories.EducationDetailsRepository;
 import com.nbti.backEnd.repositories.JobDetailsRepository;
 import com.nbti.backEnd.repositories.LanguageDetailsRepository;
@@ -27,7 +23,7 @@ public class NBTIStudentServiceImpl implements NBTIStudentService {
 
 	@Autowired
 	JobDetailsRepository jobRepo;
-	
+
 	@Autowired
 	VolunteerDetailsRepository volRepo;
 
@@ -48,7 +44,7 @@ public class NBTIStudentServiceImpl implements NBTIStudentService {
 		if (student.getVolunteering() != null)
 			volRepo.saveAll(student.getVolunteering());
 		return repo.saveAndFlush(student);
-		
+
 	}
 
 	@Override

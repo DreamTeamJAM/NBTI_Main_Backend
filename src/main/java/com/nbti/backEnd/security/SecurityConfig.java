@@ -17,7 +17,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
  
    @Autowired
-   MongoUserDetailsService mongoUserDetailsService;
+   NBTIUserDetailsService mongoUserDetailsService;
    
    @Autowired
    CustomAuthSuccessHandler customAuthSuccessHandler;
