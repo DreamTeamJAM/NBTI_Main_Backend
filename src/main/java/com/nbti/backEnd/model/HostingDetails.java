@@ -21,9 +21,9 @@ public class HostingDetails {
 	
 	private String landlord;
 	
-	private int telephone;
+	private Integer telephone;
 	
-	private int number; 
+	private Integer number; 
 	
 	private String email; 
 	
@@ -85,7 +85,7 @@ public class HostingDetails {
 		return telephone;
 	}
 
-	public void setTelephone(int telephone) {
+	public void setTelephone(Integer telephone) {
 		this.telephone = telephone;
 	}
 
@@ -93,7 +93,7 @@ public class HostingDetails {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 
