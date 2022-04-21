@@ -21,6 +21,8 @@ public class HostingDetails {
 	
 	private String landlord;
 	
+	private String region;
+	
 	private Integer telephone;
 	
 	private Integer number; 
@@ -80,7 +82,13 @@ public class HostingDetails {
 	public void setLandlord(String landlord) {
 		this.landlord = landlord;
 	}
+	public String getRegion() {
+		return region;
+	}
 
+	public void setRegion(String region) {
+		this.region = region;
+	}
 	public int getTelephone() {
 		return telephone;
 	}
