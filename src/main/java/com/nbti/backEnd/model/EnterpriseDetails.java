@@ -16,6 +16,7 @@ public class EnterpriseDetails {
 	private String companyName;
 	private String address;
 	private String city;
+	private String region;
 	private String contactPerson;
 	private Integer telephoneNumber; 
 	private String email;
@@ -42,6 +43,12 @@ public class EnterpriseDetails {
 	}
 	public void setCity(String city) {
 		this.city = city;
+	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
 	}
 	public String getContactPerson() {
 		return contactPerson;
