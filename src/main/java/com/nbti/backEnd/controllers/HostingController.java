@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nbti.backEnd.model.HostingDetails;
+import com.nbti.backEnd.model.Hosting;
 import com.nbti.backEnd.services.HostingService;
 
 @RestController
@@ -21,17 +21,17 @@ public class HostingController {
 	HostingService serv;
 	
 	@PostMapping("/hosting")
-	public ResponseEntity<Long> postStudent(@RequestBody HostingDetails host) {
+	public ResponseEntity<Long> postStudent(@RequestBody Hosting host) {
 		System.out.println("POST Hosting");
 		Long idHosting = serv.saveHosting(host);
 		return new ResponseEntity<>(idHosting, HttpStatus.OK);
 	}
 	
 	@GetMapping("/hosting")
-	public ResponseEntity<List<HostingDetails>> getAll(){
+	public ResponseEntity<List<Hosting>> getAll(){
 		try {
 			System.out.println("returning all Hostings");
-			List<HostingDetails> hosts = serv.FindAll();
+			List<Hosting> hosts = serv.FindAll();
 			
 
 			return new ResponseEntity<>(hosts, HttpStatus.OK);
@@ -41,10 +41,10 @@ public class HostingController {
 	}
 	
 	@GetMapping("/hosting/{id}")
-	public ResponseEntity<HostingDetails> getById(@PathVariable Long id){
+	public ResponseEntity<Hosting> getById(@PathVariable Long id){
 		try {
 			System.out.println("returning Hosting " + id);
-			HostingDetails host = serv.FindById(id).get(); 
+			Hosting host = serv.FindById(id).get(); 
 			
 			
 

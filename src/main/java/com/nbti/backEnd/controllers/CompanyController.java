@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nbti.backEnd.model.EnterpriseDetails;
-import com.nbti.backEnd.services.EnterpriseService;
+import com.nbti.backEnd.model.Company;
+import com.nbti.backEnd.services.CompanyService;
 
 @RestController
-public class EnterpriseController {
+public class CompanyController {
 
 	@Autowired
-	EnterpriseService serv;
+	CompanyService serv;
 	
-	@PostMapping("/enterprise")
-	public ResponseEntity<Long> postStudent(@RequestBody EnterpriseDetails enter) {
-		System.out.println("POST Enterprise");
-		Long identer = serv.saveHosting(enter);
-		return new ResponseEntity<>(identer, HttpStatus.OK);
+	@PostMapping("/company")
+	public ResponseEntity<Long> postStudent(@RequestBody Company company) {
+		System.out.println("POST company");
+		Long companyId = serv.saveHosting(company);
+		return new ResponseEntity<>(companyId, HttpStatus.OK);
 	}
 	
-	@GetMapping("/enterprise")
-	public ResponseEntity<List<EnterpriseDetails>> getAll(){
+	@GetMapping("/company")
+	public ResponseEntity<List<Company>> getAll(){
 		try {
-			System.out.println("returning all Enterprises");
-			List<EnterpriseDetails> enter = serv.FindAll();
+			System.out.println("returning all companies");
+			List<Company> enter = serv.FindAll();
 			
 
 			return new ResponseEntity<>(enter, HttpStatus.OK);
@@ -40,11 +40,11 @@ public class EnterpriseController {
 		}
 	}
 	
-	@GetMapping("/enterprise/{id}")
-	public ResponseEntity<EnterpriseDetails> getById(@PathVariable Long id){
+	@GetMapping("/company/{id}")
+	public ResponseEntity<Company> getById(@PathVariable Long id){
 		try {
-			System.out.println("returning Enterprise " + id);
-			EnterpriseDetails enter = serv.FindById(id).get(); 
+			System.out.println("returning company " + id);
+			Company enter = serv.FindById(id).get(); 
 			
 			
 

@@ -3,14 +3,14 @@ package com.nbti.backEnd.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.nbti.backEnd.model.HostingDetails;
+import com.nbti.backEnd.model.Hosting;
 
 public interface HostingService {
 
-	Long saveHosting(HostingDetails det);
+	Long saveHosting(Hosting det);
 	
-	Optional<HostingDetails> FindById(Long id);
+	Optional<Hosting> FindById(Long id);
 	
-	List<HostingDetails> FindAll();
+	List<Hosting> FindAll();
 	
 }

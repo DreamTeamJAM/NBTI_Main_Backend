@@ -6,33 +6,33 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nbti.backEnd.model.Hosting;
-import com.nbti.backEnd.repositories.HostingRepository;
+import com.nbti.backEnd.model.Company;
+import com.nbti.backEnd.repositories.CompanyRepository;
 
 
 
 @Service
-public class HostingServiceImpl implements HostingService {
+public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
-	HostingRepository repo;
+	CompanyRepository repo;
 	@Override
-	public Long saveHosting(Hosting det) {
+	public Long saveHosting(Company det) {
 		
 		
-		Hosting save=repo.saveAndFlush(det);
+		Company save=repo.saveAndFlush(det);
 		return save.getId();
 	}
 
 	@Override
-	public Optional<Hosting> FindById(Long id) {
+	public Optional<Company> FindById(Long id) {
 		
 		return repo.findById(id);
 
 	}
 
 	@Override
-	public List<Hosting> FindAll() {
+	public List<Company> FindAll() {
 	
 		return repo.findAll();
 	}

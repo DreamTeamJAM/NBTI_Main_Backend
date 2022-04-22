@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "HOSTING_DETAILS")
-public class HostingDetails {
+@Table(name = "HOSTING")
+public class Hosting {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

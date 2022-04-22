@@ -7,19 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nbti.backEnd.model.NBTIStudent;
+import com.nbti.backEnd.model.Student;
 import com.nbti.backEnd.repositories.EducationDetailsRepository;
 import com.nbti.backEnd.repositories.JobDetailsRepository;
 import com.nbti.backEnd.repositories.LanguageDetailsRepository;
-import com.nbti.backEnd.repositories.NBTIStudentRepository;
+import com.nbti.backEnd.repositories.StudentRepository;
 import com.nbti.backEnd.repositories.VolunteerDetailsRepository;
 
 @Service
 @Transactional
-public class NBTIStudentServiceImpl implements NBTIStudentService {
+public class StudentServiceImpl implements StudentService {
 
 	@Autowired
-	NBTIStudentRepository repo;
+	StudentRepository repo;
 
 	@Autowired
 	JobDetailsRepository jobRepo;
@@ -34,7 +34,7 @@ public class NBTIStudentServiceImpl implements NBTIStudentService {
 	LanguageDetailsRepository langRepo;
 
 	@Override
-	public NBTIStudent save(NBTIStudent student) {
+	public Student save(Student student) {
 		if (student.getOtherLanguages() != null)
 			langRepo.saveAll(student.getOtherLanguages());
 		if (student.getWorkExperience() != null)
@@ -48,13 +48,13 @@ public class NBTIStudentServiceImpl implements NBTIStudentService {
 	}
 
 	@Override
-	public List<NBTIStudent> listAll() {
+	public List<Student> listAll() {
 
 		return repo.findAll();
 	}
 
 	@Override
-	public Optional<NBTIStudent> findById(Long id) {
+	public Optional<Student> findById(Long id) {
 
 		return repo.findById(id);
 	}

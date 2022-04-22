@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nbti.backEnd.model.NBTIStudent;
-import com.nbti.backEnd.services.NBTIStudentService;
+import com.nbti.backEnd.model.Student;
+import com.nbti.backEnd.services.StudentService;
 
 @RestController
-public class StudentApiController {
+public class StudentController {
 
 	@Autowired
-	private NBTIStudentService studentService;
+	private StudentService studentService;
 
 	@PostMapping("/nbtiCV")
-	public ResponseEntity<Long> postStudent(@RequestBody NBTIStudent student) {
+	public ResponseEntity<Long> postStudent(@RequestBody Student student) {
 		System.out.println("POST Student CV");
-		NBTIStudent savedCV = studentService.save(student);
+		Student savedCV = studentService.save(student);
 		return new ResponseEntity<>(savedCV.getId(), HttpStatus.OK);
 	}
 
 	@GetMapping("/nbtiCV")
-	public ResponseEntity<List<NBTIStudent>> getAll() {
+	public ResponseEntity<List<Student>> getAll() {
 		try {
 			System.out.println("returning all pdfs");
-			List<NBTIStudent> students = studentService.listAll();
+			List<Student> students = studentService.listAll();
 
 			return new ResponseEntity<>(students, HttpStatus.OK);
 		} catch (Exception e) {
@@ -40,10 +40,10 @@ public class StudentApiController {
 	}
 
 	@GetMapping("/nbtiCV/{id}")
-	public ResponseEntity<NBTIStudent> getById(@PathVariable Long id) {
+	public ResponseEntity<Student> getById(@PathVariable Long id) {
 		try {
 			System.out.println("returning cv with id " + id);
-			NBTIStudent student = studentService.findById(id).get();
+			Student student = studentService.findById(id).get();
 
 			return new ResponseEntity<>(student, HttpStatus.OK);
 		} catch (Exception e) {

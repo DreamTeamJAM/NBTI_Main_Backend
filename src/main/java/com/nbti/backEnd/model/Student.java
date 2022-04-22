@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "STUDENT")
-public class NBTIStudent {
+public class Student {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,10 +37,10 @@ public class NBTIStudent {
 	private EducationDetails currentSchool;
 
 	// to relate
-	private EnterpriseDetails currentCompany;
+	private Company currentCompany;
 
 	// to relate
-	private HostingDetails currentHosting;
+	private Hosting currentHosting;
 
 	private String project;
 
@@ -320,19 +320,19 @@ public class NBTIStudent {
 		this.currentSchool = currentSchool;
 	}
 
-	public EnterpriseDetails getCurrentCompany() {
+	public Company getCurrentCompany() {
 		return currentCompany;
 	}
 
-	public void setCurrentCompany(EnterpriseDetails currentCompany) {
+	public void setCurrentCompany(Company currentCompany) {
 		this.currentCompany = currentCompany;
 	}
 
-	public HostingDetails getCurrentHosting() {
+	public Hosting getCurrentHosting() {
 		return currentHosting;
 	}
 
-	public void setCurrentHosting(HostingDetails currentHosting) {
+	public void setCurrentHosting(Hosting currentHosting) {
 		this.currentHosting = currentHosting;
 	}
 
