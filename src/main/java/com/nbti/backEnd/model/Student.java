@@ -37,10 +37,10 @@ public class Student {
 	private EducationDetails currentSchool;
 
 	// to relate
-	private Company currentCompany;
-
-	// to relate
-	private Hosting currentHosting;
+//	private Company currentCompany;
+//
+//	// to relate
+//	private Hosting currentHosting;
 
 	private String project;
 
@@ -320,21 +320,21 @@ public class Student {
 		this.currentSchool = currentSchool;
 	}
 
-	public Company getCurrentCompany() {
-		return currentCompany;
-	}
-
-	public void setCurrentCompany(Company currentCompany) {
-		this.currentCompany = currentCompany;
-	}
-
-	public Hosting getCurrentHosting() {
-		return currentHosting;
-	}
-
-	public void setCurrentHosting(Hosting currentHosting) {
-		this.currentHosting = currentHosting;
-	}
+//	public Company getCurrentCompany() {
+//		return currentCompany;
+//	}
+//
+//	public void setCurrentCompany(Company currentCompany) {
+//		this.currentCompany = currentCompany;
+//	}
+//
+//	public Hosting getCurrentHosting() {
+//		return currentHosting;
+//	}
+//
+//	public void setCurrentHosting(Hosting currentHosting) {
+//		this.currentHosting = currentHosting;
+//	}
 
 	public String getProject() {
 		return project;
