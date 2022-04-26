@@ -9,8 +9,12 @@ public interface HostingService {
 
 	Long saveHosting(Hosting det);
 	
-	Optional<Hosting> FindById(Long id);
+	Optional<Hosting> findById(Long id);
 	
-	List<Hosting> FindAll();
+	List<Hosting> findAll();
+	
+	Boolean deleteById(Long id);
+	
+	Hosting update(Hosting host);
 	
 }

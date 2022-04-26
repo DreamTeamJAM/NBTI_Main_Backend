@@ -9,8 +9,8 @@ public interface CompanyService {
 
 	Long saveHosting(Company det);
 	
-	Optional<Company> FindById(Long id);
+	Optional<Company> findById(Long id);
 	
-	List<Company> FindAll();
+	List<Company> findAll();
 	
 }

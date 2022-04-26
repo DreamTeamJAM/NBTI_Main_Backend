@@ -31,7 +31,7 @@ public class CompanyController {
 	public ResponseEntity<List<Company>> getAll(){
 		try {
 			System.out.println("returning all companies");
-			List<Company> enter = serv.FindAll();
+			List<Company> enter = serv.findAll();
 			
 
 			return new ResponseEntity<>(enter, HttpStatus.OK);
@@ -44,7 +44,7 @@ public class CompanyController {
 	public ResponseEntity<Company> getById(@PathVariable Long id){
 		try {
 			System.out.println("returning company " + id);
-			Company enter = serv.FindById(id).get(); 
+			Company enter = serv.findById(id).get(); 
 			
 			
 

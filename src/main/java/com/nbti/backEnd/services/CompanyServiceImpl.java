@@ -25,14 +25,14 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public Optional<Company> FindById(Long id) {
+	public Optional<Company> findById(Long id) {
 		
 		return repo.findById(id);
 
 	}
 
 	@Override
-	public List<Company> FindAll() {
+	public List<Company> findAll() {
 	
 		return repo.findAll();
 	}
