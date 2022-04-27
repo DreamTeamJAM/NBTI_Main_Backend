@@ -58,7 +58,7 @@ public class HostingController {
 }
 	
 	@DeleteMapping("/hosting/{id}")
-	  public ResponseEntity<String> eliminarPorId(@PathVariable Long id) {
+	  public ResponseEntity<String> deleteById(@PathVariable Long id) {
 		  
 			  return serv.deleteById(id) ? new ResponseEntity<>("deletion succesful", HttpStatus.OK)
 						: new ResponseEntity<>(" Id not in DB", HttpStatus.NOT_FOUND);

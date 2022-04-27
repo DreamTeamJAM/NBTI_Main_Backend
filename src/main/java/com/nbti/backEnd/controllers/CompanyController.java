@@ -58,14 +58,14 @@ public class CompanyController {
 }
 	
 	@DeleteMapping("/company/{id}")
-	  public ResponseEntity<String> eliminarPorId(@PathVariable Long id) {
+	  public ResponseEntity<String> deleteById(@PathVariable Long id) {
 		  
 			  return serv.deleteById(id) ? new ResponseEntity<>("deletion succesful", HttpStatus.OK)
 						: new ResponseEntity<>(" Id not in DB", HttpStatus.NOT_FOUND);
 	  }
 	
 	@PutMapping("/company")
-	 public ResponseEntity<Company> updateHost(@RequestBody Company company){
+	 public ResponseEntity<Company> updateCompany(@RequestBody Company company){
 	
 		try {
 			return new ResponseEntity<>(serv.update(company), HttpStatus.OK);
