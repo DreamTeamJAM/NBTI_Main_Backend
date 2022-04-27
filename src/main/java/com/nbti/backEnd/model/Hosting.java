@@ -37,7 +37,7 @@ public class Hosting {
 	
 	private Boolean usedBefore; 
 	
-	private int bed; 
+	private Integer bed; 
 	
 	private Boolean linenRequired;
 	
@@ -89,7 +89,7 @@ public class Hosting {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-	public int getTelephone() {
+	public Integer getTelephone() {
 		return telephone;
 	}
 
@@ -97,7 +97,7 @@ public class Hosting {
 		this.telephone = telephone;
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
@@ -145,11 +145,11 @@ public class Hosting {
 		this.usedBefore = usedBefore;
 	}
 
-	public int getBed() {
+	public Integer getBed() {
 		return bed;
 	}
 
-	public void setBed(int bed) {
+	public void setBed(Integer bed) {
 		this.bed = bed;
 	}
 
