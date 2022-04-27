@@ -1,6 +1,7 @@
 package com.nbti.backEnd.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,23 @@ public class CompanyServiceImpl implements CompanyService {
 		return repo.findAll();
 	}
 
+	@Override
+	public Boolean deleteById(Long id) {
+		try {
+			repo.deleteById(id);
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
 
+	}
+	
+	@Override
+	public Company update(Company company) throws NoSuchElementException {
+
+		findById(company.getId()).get();
+		return repo.saveAndFlush(company);
+	}
 
 	
 	

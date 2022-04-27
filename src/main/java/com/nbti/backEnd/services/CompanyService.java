@@ -13,4 +13,7 @@ public interface CompanyService {
 	
 	List<Company> findAll();
 	
+    Boolean deleteById(Long id);
+	
+	Company update(Company company);
 }
