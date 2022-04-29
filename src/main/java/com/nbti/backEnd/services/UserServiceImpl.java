@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,15 +18,12 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
 	@Override
 	public Long signUp(Users user) {
 
 		Users newUser = new Users();
 		newUser.setUsername(user.getUsername());
-		newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+		newUser.setPassword(user.getPassword());
 		newUser.setRole(user.getRole());
 		Users savedUser = userRepo.save(newUser);
 		return savedUser.getId();
@@ -43,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	public Boolean logIn(String username, String password) {
 		List<Users> users = userRepo.findByUsername(username);
 		if (!users.isEmpty()) {
-			Boolean matches = passwordEncoder.matches(password, users.get(0).getPassword());
+			Boolean matches = password.equals(users.get(0).getPassword());
 			System.out.println("psw match: " + matches);
 			return matches;
 		}
@@ -72,7 +68,7 @@ public class UserServiceImpl implements UserService {
 
 		Users updatingUser = findById(user.getId()).get();
 		updatingUser.setUsername(user.getUsername());
-		updatingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+		updatingUser.setPassword(user.getPassword());
 		updatingUser.setRole(user.getRole());
 		// Reflect.updateObject(updatingUser, user);
 		return userRepo.saveAndFlush(updatingUser);
