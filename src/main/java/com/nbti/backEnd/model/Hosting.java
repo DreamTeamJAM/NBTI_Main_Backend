@@ -1,8 +1,12 @@
 package com.nbti.backEnd.model;
+
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,36 +16,39 @@ public class Hosting {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	private String adress;
-	
-	private String city; 
-	
+
+	private String address;
+
+	private String city;
+
 	private Integer postalCode;
-	
+
 	private String landlord;
-	
+
 	private String region;
-	
+
 	private Integer telephone;
-	
-	private Integer number; 
-	
-	private String email; 
-	
-	private Double rentPerMonth; 
-	
-	private Double deposit; 
-	
-	private String iban; 
-	
-	private Boolean usedBefore; 
-	
-	private Integer bed; 
-	
+
+	private Integer number;
+
+	private String email;
+
+	private Double rentPerMonth;
+
+	private Double deposit;
+
+	private String iban;
+
+	private Boolean usedBefore;
+
+	private Integer bed;
+
 	private Boolean linenRequired;
-	
+
 	private Boolean foodInclude;
+
+	@OneToMany(mappedBy = "currentHosting")
+	private List<Student> studentsHosted;
 
 	public Long getId() {
 		return id;
@@ -51,12 +58,12 @@ public class Hosting {
 		this.id = id;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getCity() {
@@ -82,6 +89,7 @@ public class Hosting {
 	public void setLandlord(String landlord) {
 		this.landlord = landlord;
 	}
+
 	public String getRegion() {
 		return region;
 	}
@@ -89,6 +97,7 @@ public class Hosting {
 	public void setRegion(String region) {
 		this.region = region;
 	}
+
 	public Integer getTelephone() {
 		return telephone;
 	}
@@ -168,6 +177,13 @@ public class Hosting {
 	public void setFoodInclude(Boolean foodInclude) {
 		this.foodInclude = foodInclude;
 	}
-	
+
+	public List<Student> getStudentsHosted() {
+		return studentsHosted;
+	}
+
+	public void setStudentsHosted(List<Student> studentsHosted) {
+		this.studentsHosted = studentsHosted;
+	}
 
 }

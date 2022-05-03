@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,11 +37,13 @@ public class Student {
 	@JoinColumn(name = "school_id")
 	private EducationDetails currentSchool;
 
-	// to relate
-//	private Company currentCompany;
-//
-//	// to relate
-//	private Hosting currentHosting;
+	@ManyToOne
+	@JoinColumn(name = "current_company_id")
+	private Company currentCompany;
+
+	@ManyToOne
+	@JoinColumn(name = "current_hosting_id")
+	private Hosting currentHosting;
 
 	private String project;
 
@@ -320,21 +323,21 @@ public class Student {
 		this.currentSchool = currentSchool;
 	}
 
-//	public Company getCurrentCompany() {
-//		return currentCompany;
-//	}
-//
-//	public void setCurrentCompany(Company currentCompany) {
-//		this.currentCompany = currentCompany;
-//	}
-//
-//	public Hosting getCurrentHosting() {
-//		return currentHosting;
-//	}
-//
-//	public void setCurrentHosting(Hosting currentHosting) {
-//		this.currentHosting = currentHosting;
-//	}
+	public Company getCurrentCompany() {
+		return currentCompany;
+	}
+
+	public void setCurrentCompany(Company currentCompany) {
+		this.currentCompany = currentCompany;
+	}
+
+	public Hosting getCurrentHosting() {
+		return currentHosting;
+	}
+
+	public void setCurrentHosting(Hosting currentHosting) {
+		this.currentHosting = currentHosting;
+	}
 
 	public String getProject() {
 		return project;
@@ -359,7 +362,5 @@ public class Student {
 	public void setDeparture(Date departure) {
 		this.departure = departure;
 	}
-	
-	
 
 }
