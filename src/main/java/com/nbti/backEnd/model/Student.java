@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "STUDENT")
-public class Student {
+public class Student implements Payee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,6 +44,9 @@ public class Student {
 	@ManyToOne
 	@JoinColumn(name = "current_hosting_id")
 	private Hosting currentHosting;
+	
+	@OneToMany(mappedBy = "payedStudent")
+	private List<StudentPayment> payments;
 
 	private String project;
 

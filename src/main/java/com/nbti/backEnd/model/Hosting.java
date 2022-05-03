@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "HOSTING")
-public class Hosting {
+public class Hosting implements Payee{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,6 +49,9 @@ public class Hosting {
 
 	@OneToMany(mappedBy = "currentHosting")
 	private List<Student> studentsHosted;
+	
+	@OneToMany(mappedBy = "payedHosting")
+	private List<HostingPayment> payments;
 
 	public Long getId() {
 		return id;
