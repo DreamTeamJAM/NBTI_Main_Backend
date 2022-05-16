@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nbti.backEnd.model.NBTIFile;
 import com.nbti.backEnd.repositories.NBTIFileRepository;
+import com.nbti.backEnd.utils.Reflect;
 
 @Service
 public class NBTIFileServiceImpl implements NBTIFileService {
@@ -28,6 +29,7 @@ public class NBTIFileServiceImpl implements NBTIFileService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Reflect.UpdateDates(imgFile);
 		NBTIFile savedFile = imgRepo.save(imgFile);
 		System.out.println(savedFile.getId());
 		return savedFile.getId();

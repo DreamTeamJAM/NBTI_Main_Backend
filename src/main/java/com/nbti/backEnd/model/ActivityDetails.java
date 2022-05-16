@@ -8,11 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class ActivityDetails {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+public abstract class ActivityDetails extends NbtiEntity {
 
 	private String title;
 
@@ -21,14 +17,6 @@ public abstract class ActivityDetails {
 	private Date endDate;
 
 	private String country;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getTitle() {
 		return title;

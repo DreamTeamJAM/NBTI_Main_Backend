@@ -3,19 +3,12 @@ package com.nbti.backEnd.model;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "HOSTING")
-public class Hosting implements Payee{
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+public class Hosting extends NbtiEntity implements Payee {
 
 	private String address;
 
@@ -49,17 +42,9 @@ public class Hosting implements Payee{
 
 	@OneToMany(mappedBy = "currentHosting")
 	private List<Student> studentsHosted;
-	
+
 	@OneToMany(mappedBy = "payedHosting")
 	private List<HostingPayment> payments;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getAddress() {
 		return address;

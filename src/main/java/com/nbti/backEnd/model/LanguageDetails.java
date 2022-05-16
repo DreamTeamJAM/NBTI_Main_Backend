@@ -1,19 +1,12 @@
 package com.nbti.backEnd.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "LANGUAGE_DETAILS")
-public class LanguageDetails {
+public class LanguageDetails extends NbtiEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
 	private String name;
 
 	public enum level {
@@ -29,16 +22,6 @@ public class LanguageDetails {
 	private level spokenProduction;
 
 	private level spokenInteraction;
-	
-	
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -87,7 +70,5 @@ public class LanguageDetails {
 	public void setSpokenInteraction(level spokenInteraction) {
 		this.spokenInteraction = spokenInteraction;
 	}
-	
-	
 
 }

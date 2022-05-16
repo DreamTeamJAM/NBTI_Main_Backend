@@ -53,7 +53,7 @@ public class StudentController {
 	public ResponseEntity getById(@PathVariable Long id) {
 		try {
 			System.out.println("returning student with id " + id);
-			Student student = studentService.findById(id).get();
+			Student student = studentService.checkedFindById(id);
 
 			return new ResponseEntity<>(student, HttpStatus.OK);
 		} catch (NoSuchElementException e) {
@@ -68,7 +68,7 @@ public class StudentController {
 	public ResponseEntity updateStudent(@RequestBody Student student) {
 		try {
 			System.out.println("updating student with id " + student.getId());
-			studentService.findById(student.getId()).get();
+			studentService.checkedFindById(student.getId());
 
 			return new ResponseEntity<>(studentService.save(student), HttpStatus.OK);
 		} catch (NoSuchElementException e) {

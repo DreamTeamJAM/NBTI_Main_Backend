@@ -3,7 +3,9 @@ package com.nbti.backEnd.controllers;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,18 +25,31 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@SuppressWarnings("rawtypes")
 	@PostMapping("/signUp")
-	public ResponseEntity<Long> signUp(@RequestBody Users user) {
-
+	public ResponseEntity signUp(@RequestBody Users user) {
+		try {
 		Long id = userService.signUp(user);
-
 		return new ResponseEntity<>(id, HttpStatus.CREATED);
+		}catch (DataIntegrityViolationException e) {
+			System.out.println(e.getClass());
+			return new ResponseEntity<>("Username already in use",HttpStatus.FORBIDDEN);
+		}
+
+		
 	}
 
 	@GetMapping("/logIn/{username}/{password}")
+	// Limit login tries
 	public ResponseEntity<String> logIn(@PathVariable String username, @PathVariable String password) {
 		return userService.logIn(username, password) ? new ResponseEntity<>("Login succesful", HttpStatus.ACCEPTED)
 				: new ResponseEntity<>("Login failed", HttpStatus.NOT_ACCEPTABLE);
+	}
+
+	@GetMapping("/logOut")
+	public ResponseEntity<String> logOut() {
+		return userService.logOut() ? new ResponseEntity<>("LogOut", HttpStatus.ACCEPTED)
+				: new ResponseEntity<>("Log Out failed?", HttpStatus.NOT_ACCEPTABLE);
 	}
 
 	@GetMapping("/users")
@@ -57,7 +72,10 @@ public class UserController {
 	public ResponseEntity<Users> getUserById(@PathVariable Long id) {
 
 		try {
-			return new ResponseEntity<>(userService.findById(id).get(), HttpStatus.OK);
+			Users user = userService.checkedFindById(id);
+			
+			return new ResponseEntity<>(user, HttpStatus.OK);
+
 		} catch (NoSuchElementException e) {
 			return ResponseEntity.notFound().build();
 		}

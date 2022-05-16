@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nbti.backEnd.model.Hosting;
 import com.nbti.backEnd.repositories.HostingRepository;
+import com.nbti.backEnd.utils.Reflect;
 
 
 
@@ -20,7 +21,7 @@ public class HostingServiceImpl implements HostingService {
 	@Override
 	public Long saveHosting(Hosting det) {
 		
-		
+		Reflect.UpdateDates(det);
 		Hosting save=repo.saveAndFlush(det);
 		return save.getId();
 	}

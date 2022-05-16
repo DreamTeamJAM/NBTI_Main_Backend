@@ -4,22 +4,17 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "STUDENT")
-public class Student implements Payee {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+public class Student extends NbtiEntity implements Payee {
 
 	@OneToOne
 	@JoinColumn(name = "photo_id")
@@ -33,9 +28,19 @@ public class Student implements Payee {
 
 	private String typeOfStudent;// enum?
 
+	private enum MobilityStatus{
+		PENDING, ACCEPTED, DENIED, IN_PROGRESS, COMPLETED, CANCELLED
+	}
+	
+	private MobilityStatus mobilityStatus;
+	
 	@OneToOne
 	@JoinColumn(name = "school_id")
 	private EducationDetails currentSchool;
+
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private Users user;
 
 	@ManyToOne
 	@JoinColumn(name = "current_company_id")
@@ -44,15 +49,21 @@ public class Student implements Payee {
 	@ManyToOne
 	@JoinColumn(name = "current_hosting_id")
 	private Hosting currentHosting;
-	
+
 	@OneToMany(mappedBy = "payedStudent")
 	private List<StudentPayment> payments;
 
 	private String project;
 
-	private Date arrival;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date countryArrival;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date countryDeparture;
 
-	private Date departure;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date hostelArrival;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date hostelDeparture;
 
 	private String firstSurname;
 
@@ -109,14 +120,6 @@ public class Student implements Payee {
 	@OneToMany(orphanRemoval = true)
 	@JoinColumn(name = "student_id")
 	private List<VolunteerDetails> volunteering;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public NBTIFile getPhoto() {
 		return photo;
@@ -220,6 +223,16 @@ public class Student implements Payee {
 
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
+	}
+	
+	
+
+	public MobilityStatus getMobilityStatus() {
+		return mobilityStatus;
+	}
+
+	public void setMobilityStatus(MobilityStatus mobilityStatus) {
+		this.mobilityStatus = mobilityStatus;
 	}
 
 	public List<JobDetails> getWorkExperience() {
@@ -350,20 +363,52 @@ public class Student implements Payee {
 		this.project = project;
 	}
 
-	public Date getArrival() {
-		return arrival;
+	public Date getCountryArrival() {
+		return countryArrival;
 	}
 
-	public void setArrival(Date arrival) {
-		this.arrival = arrival;
+	public void setCountryArrival(Date arrival) {
+		this.countryArrival = arrival;
 	}
 
-	public Date getDeparture() {
-		return departure;
+	public Date getCountryDeparture() {
+		return countryDeparture;
 	}
 
-	public void setDeparture(Date departure) {
-		this.departure = departure;
+	public void setCountryDeparture(Date departure) {
+		this.countryDeparture = departure;
+	}
+
+	public Date getHostelArrival() {
+		return hostelArrival;
+	}
+
+	public void setHostelArrival(Date hostelArrival) {
+		this.hostelArrival = hostelArrival;
+	}
+
+	public Date getHostelDeparture() {
+		return hostelDeparture;
+	}
+
+	public void setHostelDeparture(Date hostelDeparture) {
+		this.hostelDeparture = hostelDeparture;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	public List<StudentPayment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<StudentPayment> payments) {
+		this.payments = payments;
 	}
 
 }

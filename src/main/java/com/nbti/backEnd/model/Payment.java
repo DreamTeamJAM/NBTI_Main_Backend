@@ -2,29 +2,25 @@ package com.nbti.backEnd.model;
 
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
-public abstract class Payment {
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+@MappedSuperclass
+public abstract class Payment extends NbtiEntity {
 
 	private Double amount;
 
-	private Date date;
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date paymentDate;
 
-	public Long getId() {
-		return id;
+	private enum Concept {
+		MEDICAL, TRANSPORTATION, REPAIRS, WORK_RELATED
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private Concept concept;
+
+//	private NBTIFile receipt;
 
 	public Double getAmount() {
 		return amount;
@@ -34,12 +30,28 @@ public abstract class Payment {
 		this.amount = amount;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getPaymentDate() {
+		return paymentDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setPaymentDate(Date date) {
+		this.paymentDate = date;
 	}
+
+	public Concept getConcept() {
+		return concept;
+	}
+
+	public void setConcept(Concept concept) {
+		this.concept = concept;
+	}
+
+//	public NBTIFile getReceipt() {
+//		return receipt;
+//	}
+//
+//	public void setReceipt(NBTIFile receipt) {
+//		this.receipt = receipt;
+//	}
 
 }

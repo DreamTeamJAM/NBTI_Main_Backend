@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nbti.backEnd.model.Company;
 import com.nbti.backEnd.repositories.CompanyRepository;
+import com.nbti.backEnd.utils.Reflect;
 
 
 
@@ -20,7 +21,7 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public Long saveHosting(Company det) {
 		
-		
+		Reflect.UpdateDates(det);
 		Company save=repo.saveAndFlush(det);
 		return save.getId();
 	}

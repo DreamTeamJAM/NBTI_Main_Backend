@@ -11,7 +11,7 @@ public interface StudentService {
 	
 	List<Student> listAll();
 	
-	Optional<Student> findById(Long id);
+	Student checkedFindById(Long id);
 
 	void deleteById(Long id);
 

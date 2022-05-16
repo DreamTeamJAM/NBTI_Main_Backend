@@ -1,20 +1,14 @@
 package com.nbti.backEnd.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "NBTI_USER")
-public class Users {
+public class Users extends NbtiEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long id;
-
+	@Column(unique = true)
 	public String username;
 
 	public String password;
@@ -29,16 +23,6 @@ public class Users {
 		this.username = username;
 		this.password = password;
 		this.role = role;
-	}
-
-	
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public void setPassword(String password) {
