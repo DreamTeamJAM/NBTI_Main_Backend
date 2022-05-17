@@ -29,21 +29,21 @@ public class UserController {
 	@PostMapping("/signUp")
 	public ResponseEntity signUp(@RequestBody Users user) {
 		try {
-		Long id = userService.signUp(user);
-		return new ResponseEntity<>(id, HttpStatus.CREATED);
-		}catch (DataIntegrityViolationException e) {
+			Long id = userService.signUp(user);
+			return new ResponseEntity<>(id, HttpStatus.CREATED);
+		} catch (DataIntegrityViolationException e) {
 			System.out.println(e.getClass());
-			return new ResponseEntity<>("Username already in use",HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>("Username already in use", HttpStatus.FORBIDDEN);
 		}
 
-		
 	}
 
-	@GetMapping("/logIn/{username}/{password}")
+	@GetMapping("/logIn")
 	// Limit login tries
-	public ResponseEntity<String> logIn(@PathVariable String username, @PathVariable String password) {
-		return userService.logIn(username, password) ? new ResponseEntity<>("Login succesful", HttpStatus.ACCEPTED)
-				: new ResponseEntity<>("Login failed", HttpStatus.NOT_ACCEPTABLE);
+	public ResponseEntity<Long> logIn() {
+		
+		return new ResponseEntity<>(userService.logIn(), HttpStatus.ACCEPTED);
+
 	}
 
 	@GetMapping("/logOut")
@@ -73,7 +73,7 @@ public class UserController {
 
 		try {
 			Users user = userService.checkedFindById(id);
-			
+
 			return new ResponseEntity<>(user, HttpStatus.OK);
 
 		} catch (NoSuchElementException e) {

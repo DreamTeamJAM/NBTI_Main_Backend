@@ -22,6 +22,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
           System.out.println("access denied");
         }
  
-        response.sendRedirect(request.getContextPath() + "/accessDenied");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }

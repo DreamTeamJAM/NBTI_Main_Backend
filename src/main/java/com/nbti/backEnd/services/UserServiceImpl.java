@@ -48,15 +48,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Boolean logIn(String username, String password) {
-		List<Users> users = userRepo.findByUsername(username);
-		if (!users.isEmpty()) {
-			Boolean matches = pswEnc.matches(password, users.get(0).getPassword());
-//			Boolean matches = password.equals(users.get(0).getPassword());
-			System.out.println("psw match: " + matches);
-			return matches;
-		}
-		return false;
+	public Long logIn() {
+		 
+		Users user = userRepo.findByUsername(AuthUtils.getUsername()).get(0);
+		
+		
+		return user.getId();
 	}
 
 	@Override

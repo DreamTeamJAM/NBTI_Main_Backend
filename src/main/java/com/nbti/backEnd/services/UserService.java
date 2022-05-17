@@ -8,7 +8,7 @@ public interface UserService {
 
 	Long signUp(Users user);
 
-	Boolean logIn(String username, String password);
+	Long logIn();
 
 	Users checkedFindById(Long id);
 
