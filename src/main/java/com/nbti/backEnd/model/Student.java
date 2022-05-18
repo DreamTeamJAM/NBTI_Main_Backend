@@ -10,7 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "STUDENT")
@@ -44,13 +46,16 @@ public class Student extends NbtiEntity implements Payee {
 
 	@ManyToOne
 	@JoinColumn(name = "current_company_id")
+	@JsonBackReference
 	private Company currentCompany;
 
 	@ManyToOne
 	@JoinColumn(name = "current_hosting_id")
+	@JsonBackReference
 	private Hosting currentHosting;
 
 	@OneToMany(mappedBy = "payedStudent")
+	@JsonManagedReference
 	private List<StudentPayment> payments;
 
 	private String project;
