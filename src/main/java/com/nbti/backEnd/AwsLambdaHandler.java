@@ -37,8 +37,6 @@ public class AwsLambdaHandler implements RequestStreamHandler {
     @Override
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context)
             throws IOException {
-    	System.out.println("TEST TEST " + inputStream.toString() + " ;---; " + outputStream.toString());
-    	  
     	  
         handler.proxyStream(inputStream, outputStream, context);
     }

@@ -7,7 +7,7 @@ import javax.persistence.Table;
 @Table(name = "LANGUAGE_DETAILS")
 public class LanguageDetails extends NbtiEntity {
 
-	private String name;
+	private String languageName;
 
 	public enum level {
 		A1, A2, B1, B2, C1, C2
@@ -23,12 +23,12 @@ public class LanguageDetails extends NbtiEntity {
 
 	private level spokenInteraction;
 
-	public String getName() {
-		return name;
+	public String getLanguageName() {
+		return languageName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLanguageName(String name) {
+		this.languageName = name;
 	}
 
 	public level getListening() {
