@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "HOSTING")
 public class Hosting extends NbtiEntity implements Payee {
@@ -14,7 +16,7 @@ public class Hosting extends NbtiEntity implements Payee {
 
 	private String city;
 
-	private Integer postalCode;
+	private String postalCode;
 
 	private String landlord;
 
@@ -38,8 +40,10 @@ public class Hosting extends NbtiEntity implements Payee {
 
 	private Boolean linenRequired;
 
-	private Boolean foodInclude;
-
+	private Boolean foodIncluded;
+	
+	//list of pictures of the hosting
+	@JsonManagedReference
 	@OneToMany(mappedBy = "currentHosting")
 	private List<Student> studentsHosted;
 
@@ -62,11 +66,11 @@ public class Hosting extends NbtiEntity implements Payee {
 		this.city = city;
 	}
 
-	public Integer getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
 
-	public void setPostalCode(Integer postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 
@@ -158,12 +162,12 @@ public class Hosting extends NbtiEntity implements Payee {
 		this.linenRequired = linenRequired;
 	}
 
-	public Boolean getFoodInclude() {
-		return foodInclude;
+	public Boolean getFoodIncluded() {
+		return foodIncluded;
 	}
 
-	public void setFoodInclude(Boolean foodInclude) {
-		this.foodInclude = foodInclude;
+	public void setFoodIncluded(Boolean foodInclude) {
+		this.foodIncluded = foodInclude;
 	}
 
 	public List<Student> getStudentsHosted() {

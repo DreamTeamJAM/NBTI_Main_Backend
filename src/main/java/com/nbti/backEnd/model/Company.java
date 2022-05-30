@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "COMPANY")
 public class Company extends NbtiEntity {
@@ -24,6 +26,7 @@ public class Company extends NbtiEntity {
 
 	private String email;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "currentCompany")
 	private List<Student> studentsEmployed;
 

@@ -5,12 +5,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "STUDENT_PAYMENT")
 public class StudentPayment extends Payment {
 
 	@ManyToOne
 	@JoinColumn(name = "student_id")
+	@JsonBackReference
 	private Student payedStudent;
 
 	public Student getPayedStudent() {
