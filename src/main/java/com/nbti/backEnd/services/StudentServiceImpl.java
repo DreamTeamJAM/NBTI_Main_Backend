@@ -45,12 +45,12 @@ public class StudentServiceImpl implements StudentService {
 		
 		System.out.println("saving student ...");
 		if (student.getUser() == null) {
-			Users user = userRepo.findByUsername(AuthUtils.getUsername()).get(0);
+//			Users user = userRepo.findByUsername(AuthUtils.getUsername()).get(0);
 //			if (user.getRole().equals("admin"))
-			if (repo.findAll().stream().anyMatch(st -> st.getUser().equals(user)))
-				throw new NoSuchElementException();// More descriptive exceptions
-			
-			student.setUser(user);
+//			if (repo.findAll().stream().anyMatch(st -> st.getUser().equals(user)))
+//				throw new NoSuchElementException();// More descriptive exceptions
+//			
+//			student.setUser(user);
 		}
 		System.out.println(" related user verified");
 		if (student.getOtherLanguages() != null) {

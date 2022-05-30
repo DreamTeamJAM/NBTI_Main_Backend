@@ -16,21 +16,10 @@ import com.nbti.backEnd.model.Users;
 import com.nbti.backEnd.repositories.UserRepository;
 
 @Component
-public class NBTIUserDetailsService implements UserDetailsService{
+public class NBTIUserDetailsService{
 
 	@Autowired 
 	private UserRepository userRepository;
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Users user=userRepository.findByUsername(username).get(0);
-		
-		if(user == null) {
-	      throw new UsernameNotFoundException("User not found");
-	    }
-		
-		List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
-		
-	    return new User(user.getUsername(), user.getPassword(), authorities);
-	}
+	
 
 }
