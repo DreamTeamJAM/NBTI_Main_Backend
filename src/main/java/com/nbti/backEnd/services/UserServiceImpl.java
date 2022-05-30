@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nbti.backEnd.model.Users;
 import com.nbti.backEnd.repositories.UserRepository;
+import com.nbti.backEnd.repositories.UserRepositoryTwo;
 import com.nbti.backEnd.utils.AuthUtils;
 import com.nbti.backEnd.utils.Reflect;
 
@@ -18,7 +19,7 @@ import com.nbti.backEnd.utils.Reflect;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserRepository userRepo;
+	private UserRepositoryTwo userRepo;
 
 	@Autowired
 	private PasswordEncoder pswEnc;
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
 		Users newUser = new Users();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(pswEnc.encode(user.getPassword()));
-//		newUser.setRole(user.getRole());
+		newUser.setRole(user.getRole());
 		newUser.setRole("student");
 		
 		Users savedUser = save(newUser);
