@@ -26,7 +26,7 @@ public class Company extends NbtiEntity {
 
 	private String email;
 
-	@JsonManagedReference
+	@JsonManagedReference(value="studentCompany")
 	@OneToMany(mappedBy = "currentCompany")
 	private List<Student> studentsEmployed;
 

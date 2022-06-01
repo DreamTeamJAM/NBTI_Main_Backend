@@ -8,9 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nbti.backEnd.model.Users;
+import com.nbti.backEnd.model.Student;
+import com.nbti.backEnd.model.User;
+import com.nbti.backEnd.repositories.StudentRepository;
 import com.nbti.backEnd.repositories.UserRepository;
-import com.nbti.backEnd.repositories.UserRepositoryTwo;
 import com.nbti.backEnd.utils.AuthUtils;
 import com.nbti.backEnd.utils.Reflect;
 
@@ -19,47 +20,31 @@ import com.nbti.backEnd.utils.Reflect;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserRepositoryTwo userRepo;
+	private UserRepository userRepo;
+	
+	@Autowired
+	private StudentRepository stRepo;
 
 	@Autowired
 	private PasswordEncoder pswEnc;
 
-	@Override
-	public Long signUp(Users user) {
+	
 
-		Users newUser = new Users();
-		newUser.setUsername(user.getUsername());
-		newUser.setPassword(pswEnc.encode(user.getPassword()));
-		newUser.setRole(user.getRole());
-		newUser.setRole("student");
-		
-		Users savedUser = save(newUser);
-		return savedUser.getId();
-	}
-
-	public Users save(Users user) {
+	public User save(User user) {
 		Reflect.UpdateDates(user);
 		return userRepo.saveAndFlush(user);
 	}
 
 	@Override
-	public List<Users> findAll() {
+	public List<User> findAll() {
 
 		return userRepo.findAll();
 	}
 
-	@Override
-	public Long logIn() {
-		 
-		Users user = userRepo.findByUsername(AuthUtils.getUsername()).get(0);
-		
-		
-		return user.getId();
-	}
 
 	@Override
-	public Users checkedFindById(Long id) {
-		Users user = userRepo.findById(id).get();
+	public User checkedFindById(Long id) {
+		User user = userRepo.findById(id).get();
 		AuthUtils.authUser(user);
 
 		return user;
@@ -68,6 +53,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Boolean deleteById(Long id) {
 		try {
+			stRepo.findAll().stream().filter((s)-> s.getUser().getId().equals(id)).forEach(s -> stRepo.delete(s));
 			userRepo.deleteById(id);
 			return true;
 		} catch (IllegalArgumentException e) {
@@ -77,21 +63,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Users update(Users user) throws NoSuchElementException {
+	public User update(User user) throws NoSuchElementException {
 
-		Users updatingUser = checkedFindById(user.getId());
+		User updatingUser = checkedFindById(user.getId());
 
 		updatingUser.setUsername(user.getUsername());
 		updatingUser.setPassword(pswEnc.encode(user.getPassword()));
-		updatingUser.setRole(user.getRole());
+		updatingUser.setRoles(user.getRoles());
 		// Reflect.updateObject(updatingUser, user);
 		return save(updatingUser);
-	}
-
-	@Override
-	public boolean logOut() {
-		// TODO Auto-generated method stub
-		return true;
 	}
 
 }

@@ -2,21 +2,16 @@ package com.nbti.backEnd.services;
 
 import java.util.List;
 
-import com.nbti.backEnd.model.Users;
+import com.nbti.backEnd.model.User;
 
 public interface UserService {
 
-	Long signUp(Users user);
+	User checkedFindById(Long id);
 
-	Long logIn();
+	User update(User user);
 
-	Users checkedFindById(Long id);
-
-	Users update(Users user);
-
-	List<Users> findAll();
+	List<User> findAll();
 
 	Boolean deleteById(Long id);
 
-	boolean logOut();
 }

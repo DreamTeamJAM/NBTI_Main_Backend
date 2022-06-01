@@ -13,7 +13,7 @@ public class StudentPayment extends Payment {
 
 	@ManyToOne
 	@JoinColumn(name = "student_id")
-	@JsonBackReference
+	@JsonBackReference(value="studentPayments")
 	private Student payedStudent;
 
 	public Student getPayedStudent() {

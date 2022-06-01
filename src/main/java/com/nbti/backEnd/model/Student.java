@@ -42,20 +42,21 @@ public class Student extends NbtiEntity implements Payee {
 
 	@OneToOne
 	@JoinColumn(name = "user_id")
-	private Users user;
+	@JsonManagedReference(value="studentUser")
+	private User user;
 
 	@ManyToOne
 	@JoinColumn(name = "current_company_id")
-	@JsonBackReference
+	@JsonBackReference(value="studentCompany")
 	private Company currentCompany;
 
 	@ManyToOne
 	@JoinColumn(name = "current_hosting_id")
-	@JsonBackReference
+	@JsonBackReference(value="studentHosting")
 	private Hosting currentHosting;
 
 	@OneToMany(mappedBy = "payedStudent")
-	@JsonManagedReference
+	@JsonManagedReference(value="studentPayments")
 	private List<StudentPayment> payments;
 
 	private String project;
@@ -400,11 +401,11 @@ public class Student extends NbtiEntity implements Payee {
 		this.hostelDeparture = hostelDeparture;
 	}
 
-	public Users getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

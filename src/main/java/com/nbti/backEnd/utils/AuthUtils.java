@@ -5,12 +5,13 @@ import java.util.NoSuchElementException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.nbti.backEnd.model.ERole;
 import com.nbti.backEnd.model.Student;
-import com.nbti.backEnd.model.Users;
+import com.nbti.backEnd.model.User;
 
 public class AuthUtils {
 
-	public static void authUser(Users user) throws NoSuchElementException {
+	public static void authUser(User user) throws NoSuchElementException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println(auth.getName());
 		System.out.println(user.getUsername());
@@ -26,7 +27,7 @@ public class AuthUtils {
 	private static boolean isAdmin(Authentication auth) {
 		return auth.getAuthorities().stream().anyMatch(a -> {
 			System.out.println(a);
-			return a.getAuthority().equals("admin");
+			return a.getAuthority().equals("ROLE_ADMIN");
 		});
 	}
 

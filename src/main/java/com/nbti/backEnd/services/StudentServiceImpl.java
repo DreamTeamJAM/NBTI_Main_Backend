@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nbti.backEnd.model.ERole;
 import com.nbti.backEnd.model.Student;
-import com.nbti.backEnd.model.Users;
+import com.nbti.backEnd.model.User;
 import com.nbti.backEnd.repositories.EducationDetailsRepository;
 import com.nbti.backEnd.repositories.JobDetailsRepository;
 import com.nbti.backEnd.repositories.LanguageDetailsRepository;
@@ -44,13 +45,13 @@ public class StudentServiceImpl implements StudentService {
 	public Student save(Student student) {
 		
 		System.out.println("saving student ...");
-		if (student.getUser() == null) {
-//			Users user = userRepo.findByUsername(AuthUtils.getUsername()).get(0);
-//			if (user.getRole().equals("admin"))
-//			if (repo.findAll().stream().anyMatch(st -> st.getUser().equals(user)))
-//				throw new NoSuchElementException();// More descriptive exceptions
-//			
-//			student.setUser(user);
+			if (student.getUser() == null) {
+				User user = userRepo.findByUsername(AuthUtils.getUsername()).get();
+//				if (user.getRoles().stream().anyMatch((r) -> r.getName().equals(ERole.ROLE_ADMIN)))
+					if (repo.findAll().stream().anyMatch(st -> st.getUser().equals(user)))
+						throw new NoSuchElementException();// More descriptive exceptions
+				
+				student.setUser(user);
 		}
 		System.out.println(" related user verified");
 		if (student.getOtherLanguages() != null) {

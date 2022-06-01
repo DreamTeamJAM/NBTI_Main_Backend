@@ -43,7 +43,7 @@ public class Hosting extends NbtiEntity implements Payee {
 	private Boolean foodIncluded;
 	
 	//list of pictures of the hosting
-	@JsonManagedReference
+	@JsonManagedReference(value="studentHosting")
 	@OneToMany(mappedBy = "currentHosting")
 	private List<Student> studentsHosted;
 
