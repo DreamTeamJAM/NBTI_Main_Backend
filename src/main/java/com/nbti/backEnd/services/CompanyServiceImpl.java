@@ -51,10 +51,13 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	@Override
-	public Company update(Company company) throws NoSuchElementException {
-
-		findById(company.getId()).get();
-		return repo.saveAndFlush(company);
+	public Company update(Company updatedCompany) throws NoSuchElementException, IllegalArgumentException {
+		Long id = updatedCompany.getId();
+		if (id == null) throw new IllegalArgumentException("Id must not be null");
+		Company updatingCompany = findById(id).get();
+		Reflect.updateObject(updatingCompany, updatedCompany);
+		Reflect.UpdateDates(updatingCompany);
+		return repo.saveAndFlush(updatingCompany);
 	}
 
 	

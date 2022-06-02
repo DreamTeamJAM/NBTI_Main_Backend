@@ -86,4 +86,13 @@ public class Company extends NbtiEntity {
 		this.email = email;
 	}
 
+	public List<Student> getStudentsEmployed() {
+		return studentsEmployed;
+	}
+
+	public void setStudentsEmployed(List<Student> studentsEmployed) {
+		this.studentsEmployed = studentsEmployed;
+	}
+
+	
 }

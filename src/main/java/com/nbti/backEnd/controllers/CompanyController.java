@@ -64,13 +64,16 @@ public class CompanyController {
 						: new ResponseEntity<>(" Id not in DB", HttpStatus.NOT_FOUND);
 	  }
 	
+	@SuppressWarnings("rawtypes")
 	@PutMapping("/company")
-	 public ResponseEntity<Company> updateCompany(@RequestBody Company company){
+	 public ResponseEntity updateCompany(@RequestBody Company company){
 	
 		try {
 			return new ResponseEntity<>(serv.update(company), HttpStatus.OK);
 		} catch (NoSuchElementException e) {
 			return ResponseEntity.notFound().build();
-		} 
+		} catch (IllegalArgumentException e) {
+			return new ResponseEntity<>(e.getLocalizedMessage(),HttpStatus.BAD_REQUEST);
+		}
 	}
 }
