@@ -8,12 +8,14 @@ import com.nbti.backEnd.dto.StudentDto;
 
 public interface StudentService {
 	
-	Student save(Student student);
+	StudentDto save(StudentDto student);
 	
-	List<Student> listAll();
+	List<StudentDto> listAll();
 	
-	StudentDto checkedFindById(Long id);
+	StudentDto checkedFindDtoById(Long id);
 
 	void deleteById(Long id);
+
+	StudentDto update(StudentDto dto);
 
 }

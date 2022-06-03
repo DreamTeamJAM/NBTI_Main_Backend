@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.nbti.backEnd.dto.StudentDto;
 
 @Entity
 @Table(name = "STUDENT")
@@ -126,6 +127,42 @@ public class Student extends NbtiEntity implements Payee {
 	@OneToMany(orphanRemoval = true)
 	@JoinColumn(name = "student_id")
 	private List<VolunteerDetails> volunteering;
+
+	public Student() {
+		
+	}
+
+	public Student(StudentDto dto, NBTIFile photo, NBTIFile dniFront,
+			NBTIFile dniBack, User user) {
+		
+		super();
+		this.photo = photo;
+		this.name = dto.getName();
+		this.dni = dto.getDni();
+		this.city = dto.getCity();
+		this.user = user;
+		this.firstSurname = dto.getFirstSurname();
+		this.secondSurname = dto.getSecondSurname();
+		this.nationality = dto.getNationality();
+		this.phone = dto.getPhone();
+		this.birthDate = dto.getBirthDate();
+		this.gender = dto.getGender();
+		this.email = dto.getEmail();
+		this.dniFront = dniFront;
+		this.dniBack = dniBack;
+		this.address = dto.getAddress();
+		this.aboutMe = dto.getAboutMe();
+		this.workExperience = dto.getWorkExperience();
+		this.education = dto.getEducation();
+		this.motherTongues = dto.getMotherTongues();
+		this.otherLanguages = dto.getOtherLanguages();
+		this.digitalSkills = dto.getDigitalSkills();
+		this.comunicationSkills = dto.getComunicationSkills();
+		this.drivingLicense = dto.getDrivingLicense();
+		this.hobbies = dto.getHobbies();
+		this.volunteering = dto.getVolunteering();
+	}
+
 
 	public NBTIFile getPhoto() {
 		return photo;
@@ -246,7 +283,9 @@ public class Student extends NbtiEntity implements Payee {
 	}
 
 	public void setWorkExperience(List<JobDetails> workExperiences) {
-		this.workExperience = workExperiences;
+		this.workExperience.clear();
+		if (workExperiences != null)
+			this.workExperience.addAll(workExperiences);
 	}
 
 	public List<EducationDetails> getEducation() {
@@ -254,7 +293,9 @@ public class Student extends NbtiEntity implements Payee {
 	}
 
 	public void setEducation(List<EducationDetails> education) {
-		this.education = education;
+		this.education.clear();
+		if (education != null)
+			this.education.addAll(education);
 	}
 
 	public List<LanguageDetails> getOtherLanguages() {
@@ -262,7 +303,9 @@ public class Student extends NbtiEntity implements Payee {
 	}
 
 	public void setOtherLanguages(List<LanguageDetails> otherLanguages) {
-		this.otherLanguages = otherLanguages;
+		this.otherLanguages.clear();
+		if (otherLanguages != null)
+			this.otherLanguages.addAll(otherLanguages);
 	}
 
 	public DrivingLicenseType getDrivingLicense() {
@@ -286,7 +329,9 @@ public class Student extends NbtiEntity implements Payee {
 	}
 
 	public void setVolunteering(List<VolunteerDetails> volunteering) {
-		this.volunteering = volunteering;
+		this.volunteering.clear();
+		if (volunteering != null)
+			this.volunteering.addAll(volunteering);
 	}
 
 	public String getMotherTongues() {

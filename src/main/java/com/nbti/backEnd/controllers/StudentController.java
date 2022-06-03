@@ -28,18 +28,19 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 
+	@SuppressWarnings("rawtypes")
 	@PostMapping("/student")
-	public ResponseEntity<Long> postStudent(@RequestBody Student student) {
+	public ResponseEntity postStudent(@RequestBody StudentDto student) {
 		System.out.println("POST Student");
-		Student savedCV = studentService.save(student);
-		return new ResponseEntity<>(savedCV.getId(), HttpStatus.OK);
+		StudentDto savedStudent = studentService.save(student);
+		return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/student")
-	public ResponseEntity<List<Student>> getAll() {
+	public ResponseEntity<List<StudentDto>> getAll() {
 		try {
 			System.out.println("returning all students");
-			List<Student> students = studentService.listAll();
+			List<StudentDto> students = studentService.listAll();
 
 			return new ResponseEntity<>(students, HttpStatus.OK);
 		} catch (Exception e) {
@@ -52,7 +53,7 @@ public class StudentController {
 	public ResponseEntity getById(@PathVariable Long id) {
 		try {
 			System.out.println("returning student with id " + id);
-			StudentDto student = studentService.checkedFindById(id);
+			StudentDto student = studentService.checkedFindDtoById(id);
 
 			return new ResponseEntity<>(student, HttpStatus.OK);
 		} catch (NoSuchElementException e) {
@@ -64,15 +65,16 @@ public class StudentController {
 
 	@SuppressWarnings("rawtypes")
 	@PutMapping("/student")
-	public ResponseEntity updateStudent(@RequestBody Student student) {
+	public ResponseEntity updateStudent(@RequestBody StudentDto student) {
 		try {
 			System.out.println("updating student with id " + student.getId());
-			studentService.checkedFindById(student.getId());
+//			studentService.checkedFindById(student.getId());
 
-			return new ResponseEntity<>(studentService.save(student), HttpStatus.OK);
+			return new ResponseEntity<>(studentService.update(student), HttpStatus.OK);
 		} catch (NoSuchElementException e) {
 			return new ResponseEntity<>(NOT_FOUND_STR, HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

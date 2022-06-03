@@ -3,14 +3,17 @@ package com.nbti.backEnd.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nbti.backEnd.model.EducationDetails;
 import com.nbti.backEnd.model.JobDetails;
 import com.nbti.backEnd.model.LanguageDetails;
 import com.nbti.backEnd.model.Student;
+import com.nbti.backEnd.model.Student.DrivingLicenseType;
 import com.nbti.backEnd.model.VolunteerDetails;
 
 public class StudentDto {
 
+	private Long id;
 	private Long userId;
 	private Long photoId;
 	private Long dniFrontId;
@@ -22,6 +25,7 @@ public class StudentDto {
 	private String secondSurname;
 	private String nationality;
 	private String phone;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 	private String gender;
 	private String email;
@@ -33,11 +37,16 @@ public class StudentDto {
 	private List<LanguageDetails> otherLanguages;
 	private String digitalSkills;
 	private String comunicationSkills;
-	private String drivingLicense;
+	private DrivingLicenseType drivingLicense;
 	private String hobbies;
 	private List<VolunteerDetails> volunteering;
 
+	public StudentDto() {
+		
+	}
+	
 	public StudentDto(Student s) {
+		id = s.getId();
 		name= s.getName();
 		if(s.getUser()!=null) {
 			userId= s.getUser().getId();
@@ -68,7 +77,7 @@ public class StudentDto {
 		otherLanguages= s.getOtherLanguages();
 		digitalSkills= s.getDigitalSkills();
 		comunicationSkills= s.getComunicationSkills();
-		drivingLicense= s.getDigitalSkills();
+		drivingLicense= s.getDrivingLicense();
 		hobbies= s.getHobbies();
 		volunteering= s.getVolunteering();
 		
@@ -218,11 +227,11 @@ public class StudentDto {
 		this.comunicationSkills = comunicationSkills;
 	}
 
-	public String getDrivingLicense() {
+	public DrivingLicenseType getDrivingLicense() {
 		return drivingLicense;
 	}
 
-	public void setDrivingLicense(String drivingLicense) {
+	public void setDrivingLicense(DrivingLicenseType drivingLicense) {
 		this.drivingLicense = drivingLicense;
 	}
 
@@ -272,6 +281,14 @@ public class StudentDto {
 
 	public void setDniBackId(Long dniBackId) {
 		this.dniBackId = dniBackId;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 
