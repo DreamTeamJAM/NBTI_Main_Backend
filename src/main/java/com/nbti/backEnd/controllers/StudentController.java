@@ -3,8 +3,6 @@ package com.nbti.backEnd.controllers;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.ws.rs.NotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nbti.backEnd.dto.StudentDto;
 import com.nbti.backEnd.model.Student;
 import com.nbti.backEnd.services.StudentService;
 
@@ -53,7 +52,7 @@ public class StudentController {
 	public ResponseEntity getById(@PathVariable Long id) {
 		try {
 			System.out.println("returning student with id " + id);
-			Student student = studentService.checkedFindById(id);
+			StudentDto student = studentService.checkedFindById(id);
 
 			return new ResponseEntity<>(student, HttpStatus.OK);
 		} catch (NoSuchElementException e) {

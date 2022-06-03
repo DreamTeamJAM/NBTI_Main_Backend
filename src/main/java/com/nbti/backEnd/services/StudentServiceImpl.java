@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nbti.backEnd.model.ERole;
+import com.nbti.backEnd.dto.StudentDto;
 import com.nbti.backEnd.model.Student;
 import com.nbti.backEnd.model.User;
 import com.nbti.backEnd.repositories.EducationDetailsRepository;
@@ -82,8 +82,9 @@ public class StudentServiceImpl implements StudentService {
 		return repo.findAll();
 	}
 
-	@Override
-	public Student checkedFindById(Long id) {
+	
+    @Deprecated
+	public Student checkedFindByIdOld(Long id) {
 		Student student = repo.findById(id).get();
 		if (student.getUser() == null)
 			throw new NoSuchElementException();
@@ -95,5 +96,14 @@ public class StudentServiceImpl implements StudentService {
 	public void deleteById(Long id) {
 
 		repo.deleteById(id);
+	}
+	@Override
+	public StudentDto checkedFindById(Long id) {
+		Student student = repo.findById(id).get();
+		StudentDto dto = new StudentDto(student);
+		if (student.getUser() == null)
+			throw new NoSuchElementException();
+		AuthUtils.authUser(student.getUser());
+		return dto;
 	}
 }

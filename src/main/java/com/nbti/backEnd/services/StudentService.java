@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.nbti.backEnd.model.Student;
+import com.nbti.backEnd.dto.StudentDto;
 
 public interface StudentService {
 	
@@ -11,7 +12,7 @@ public interface StudentService {
 	
 	List<Student> listAll();
 	
-	Student checkedFindById(Long id);
+	StudentDto checkedFindById(Long id);
 
 	void deleteById(Long id);
 
