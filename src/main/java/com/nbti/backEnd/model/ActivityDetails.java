@@ -7,13 +7,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @MappedSuperclass
 public abstract class ActivityDetails extends NbtiEntity {
 
 	private String title;
-
+	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
-
+	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
 
 	private String country;

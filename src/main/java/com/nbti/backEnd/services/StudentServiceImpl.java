@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nbti.backEnd.dto.StudentDto;
 import com.nbti.backEnd.model.ERole;
+import com.nbti.backEnd.model.NBTIFile;
 import com.nbti.backEnd.model.Student;
 import com.nbti.backEnd.model.User;
 import com.nbti.backEnd.repositories.EducationDetailsRepository;
@@ -102,8 +103,20 @@ public class StudentServiceImpl implements StudentService {
 		Student updatingSt = checkedFindById(dto.getId());
 		clearOldDetails(updatingSt);
 		setNewDetails(dto);
-		Student updatedSt = new Student(dto, fileRepo.findById(dto.getPhotoId()).get(),
-				fileRepo.findById(dto.getDniFrontId()).get(), fileRepo.findById(dto.getDniBackId()).get(),
+		NBTIFile photo = null, dniFront = null, dniback  = null;
+		if (dto.getPhotoId() != null) {
+			photo = fileRepo.findById(dto.getPhotoId()).get();
+		}
+		if (dto.getDniFrontId() != null) {
+			dniFront = fileRepo.findById(dto.getDniFrontId()).get();
+		}
+		if (dto.getDniBackId() != null) {
+			dniback = fileRepo.findById(dto.getDniBackId()).get();
+		}
+		Student updatedSt = new Student(dto, 
+				photo,
+				dniFront, 
+				dniback,
 				userRepo.findById(dto.getUserId()).get());
 
 		Reflect.updateObject(updatingSt, updatedSt);
