@@ -62,6 +62,21 @@ public class StudentController {
 			return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@GetMapping("/users/{id}/student")
+	public ResponseEntity getByUserId(@PathVariable Long id) {
+		try {
+			System.out.println("returning student with user with id: " + id);
+			StudentDto student = studentService.checkedFindByUser(id);
+
+			return new ResponseEntity<>(student, HttpStatus.OK);
+		} catch (NoSuchElementException e) {
+			return new ResponseEntity<>(NOT_FOUND_STR, HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	@SuppressWarnings("rawtypes")
 	@PutMapping("/student")

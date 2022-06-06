@@ -18,4 +18,6 @@ public interface StudentService {
 
 	StudentDto update(StudentDto dto);
 
+	StudentDto checkedFindByUser(Long id);
+
 }

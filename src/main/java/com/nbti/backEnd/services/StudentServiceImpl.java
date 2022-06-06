@@ -155,4 +155,12 @@ public class StudentServiceImpl implements StudentService {
 		StudentDto dto = new StudentDto(checkedFindById(id));
 		return dto;
 	}
+
+	@Override
+	public StudentDto checkedFindByUser(Long id) {
+
+		User user = userRepo.getById(id);
+		AuthUtils.authUser(user);
+		return new StudentDto(repo.findByUser(user).get());
+	}
 }
