@@ -52,11 +52,11 @@ public class StudentServiceImpl implements StudentService {
 	public StudentDto save(StudentDto studentDto) {
 		System.out.println("saving student ...");
 
-		Student newSt = new Student();
-
-		validateUser(studentDto, newSt);
-
 		setNewDetails(studentDto);
+		User user = validateUser(studentDto);
+		NBTIFile[] photos = getPhotos(studentDto);
+		
+		Student newSt = new Student(studentDto, photos[0], photos[1], photos[1], user);
 
 		Reflect.UpdateDates(newSt);
 		System.out.println("saved student");
@@ -83,18 +83,41 @@ public class StudentServiceImpl implements StudentService {
 		}
 	}
 
-	private void validateUser(StudentDto student, Student newSt) {
+	private User validateUser(StudentDto student) {
+		User user = userRepo.findByUsername(AuthUtils.getUsername()).get();
 		if (student.getUserId() == null) {
-			User user = userRepo.findByUsername(AuthUtils.getUsername()).get();
+
 			if (user.getRoles().stream().anyMatch((r) -> r.getName().equals(ERole.ROLE_ADMIN))) {
-				newSt.setUser(user);
+				System.out.println(" related user verified");
+				return user;
 			}
-			if (repo.findAll().stream().anyMatch(st -> st.getUser().equals(user)))
-				throw new NoSuchElementException("cant post more than 1 student per user");// More descriptive
-																							// exceptions
+		} else if (user.getId().equals(student.getUserId())) {
+			System.out.println(" related user verified");
+			return user;
+		} else {
+			throw new NoSuchElementException("User Mismatch");// More descriptive
 
 		}
-		System.out.println(" related user verified");
+		if (repo.findAll().stream().anyMatch(st -> st.getUser().equals(user)))
+			throw new NoSuchElementException("cant post more than 1 student per user");// More descriptive
+																						// exceptions
+		return null;
+
+	}
+
+	private NBTIFile[] getPhotos(StudentDto dto) {
+
+		NBTIFile[] photos = new NBTIFile[3];
+		if (dto.getPhotoId() != null) {
+			photos[0] = fileRepo.findById(dto.getPhotoId()).get();
+		}
+		if (dto.getDniFrontId() != null) {
+			photos[1] = fileRepo.findById(dto.getDniFrontId()).get();
+		}
+		if (dto.getDniBackId() != null) {
+			photos[2] = fileRepo.findById(dto.getDniBackId()).get();
+		}
+		return photos;
 	}
 
 	@Override
@@ -103,21 +126,8 @@ public class StudentServiceImpl implements StudentService {
 		Student updatingSt = checkedFindById(dto.getId());
 		clearOldDetails(updatingSt);
 		setNewDetails(dto);
-		NBTIFile photo = null, dniFront = null, dniback  = null;
-		if (dto.getPhotoId() != null) {
-			photo = fileRepo.findById(dto.getPhotoId()).get();
-		}
-		if (dto.getDniFrontId() != null) {
-			dniFront = fileRepo.findById(dto.getDniFrontId()).get();
-		}
-		if (dto.getDniBackId() != null) {
-			dniback = fileRepo.findById(dto.getDniBackId()).get();
-		}
-		Student updatedSt = new Student(dto, 
-				photo,
-				dniFront, 
-				dniback,
-				userRepo.findById(dto.getUserId()).get());
+		NBTIFile[] photos = getPhotos(dto);
+		Student updatedSt = new Student(dto, photos[0], photos[1], photos[2], userRepo.findById(dto.getUserId()).get());
 
 		Reflect.updateObject(updatingSt, updatedSt);
 		Reflect.UpdateDates(updatingSt);
