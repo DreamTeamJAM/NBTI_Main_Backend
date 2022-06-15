@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nbti.backEnd.dto.StudentDto;
-import com.nbti.backEnd.model.Student;
 import com.nbti.backEnd.services.StudentService;
 
 @RestController
@@ -31,6 +30,10 @@ public class StudentController {
 	@SuppressWarnings("rawtypes")
 	@PostMapping("/student")
 	public ResponseEntity postStudent(@RequestBody StudentDto student) {
+		if (student.getId() != null) {
+			System.out.println("detected ID: redirecting to put");
+			return updateStudent(student);
+		}
 		System.out.println("POST Student");
 		StudentDto savedStudent = studentService.save(student);
 		return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
@@ -62,7 +65,7 @@ public class StudentController {
 			return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@GetMapping("/users/{id}/student")
 	public ResponseEntity getByUserId(@PathVariable Long id) {

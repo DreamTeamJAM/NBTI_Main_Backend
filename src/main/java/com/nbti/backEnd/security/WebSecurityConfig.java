@@ -61,11 +61,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.httpBasic().and().authorizeRequests().antMatchers("/users/{id}", "/student/{id}", "/login")
 				.hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
 
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/users", "/student").hasAnyAuthority("ROLE_USER",
+				"ROLE_ADMIN");
+		
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/users", "/student", "/upload")
 				.hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
 
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/users", "/student").hasAnyAuthority("ROLE_USER",
-				"ROLE_ADMIN");
+		
 
 //restricting access
 		http.httpBasic().and().authorizeRequests().antMatchers("/users", "/student", "/hosting", "/company")
